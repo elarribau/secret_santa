@@ -1,0 +1,25 @@
+{
+  "participants": [
+    {
+      "id": "lina",
+      "displayName": "Lina",
+      "pwHash": "3b5d5c3712955042212316173ccf37be800b0e725f0ff7f3f5d9b9f5f3d3d3d3",
+      "matchId": "arthur",
+      "note": "Aime les BD et le chocolat (pas d'allergie)"
+    },
+    {
+      "id": "arthur",
+      "displayName": "Arthur",
+      "pwHash": "9f86d081884c7d659a2feaa0c55ad015a3bf4f1b2b0b822cd15d6c15b0f00a08",
+      "matchId": "elyse",
+      "note": "Fan de foot, petit budget ok"
+    },
+    {
+      "id": "elyse",
+      "displayName": "Elyse",
+      "pwHash": "2d711642b726b04401627ca9fbac32f5da7a4f90ec7d8b5b1b6f9a3ea4e1f9d2",
+      "matchId": "lina",
+      "note": "Préfère un petit livre ou papeterie"
+    }
+  ]
+}

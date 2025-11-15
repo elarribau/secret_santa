@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Le Don Caché — Tirage</title>
+  <style>
+    :root{font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;font-size:16px;color:#111}
+    body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#f5f7fb;padding:20px}
+    .card{width:100%;max-width:520px;background:#fff;border-radius:12px;box-shadow:0 6px 24px rgba(20,30,60,0.08);padding:28px}
+    h1{margin:0 0 8px;font-size:20px}
+    p.lead{margin:0 0 18px;color:#445}
+    label{display:block;margin-top:12px;font-weight:600;font-size:14px}
+    input[type="text"], input[type="password"]{width:100%;padding:10px 12px;border-radius:8px;border:1px solid #d7dbe7;margin-top:6px;box-sizing:border-box}
+    button{margin-top:18px;padding:10px 14px;border-radius:10px;border:0;background:#1f6feb;color:white;font-weight:600;cursor:pointer}
+    .result{margin-top:18px;padding:12px;border-radius:10px;background:#f0f8ff;border:1px solid #d8e9ff}
+    .error{margin-top:18px;padding:12px;border-radius:10px;background:#fff2f2;border:1px solid #ffd1d1;color:#8a1f1f}
+    small{display:block;margin-top:10px;color:#667}
+    .note{font-size:13px;color:#556;margin-top:12px}
+  </style>
+</head>
+<body>
+  <div class="card" role="main">
+    <h1>Le Don Caché — accès au tirage</h1>
+    <p class="lead">Saisis ton identifiant (prénom ou pseudo) et le mot de passe que tu as choisi pour voir qui tu as pioché.</p>
+
+    <label for="pid">Identifiant (prénom ou code)</label>
+    <input id="pid" type="text" autocomplete="off" placeholder="Ex : Lina" />
+
+    <label for="pw">Mot de passe</label>
+    <input id="pw" type="password" autocomplete="new-password" placeholder="Ton mot de passe secret" />
+
+    <button id="btn">Voir mon tirage</button>
+
+    <div id="feedback" aria-live="polite"></div>
+
+    <div class="note">
+      <strong>Organisatrice : </strong>si tu veux modifier la liste, mets à jour `data.json` dans le dépôt. Les mots de passe sont comparés par leur haché SHA-256.
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
