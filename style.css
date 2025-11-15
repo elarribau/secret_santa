@@ -293,7 +293,7 @@ body {
 .letter {
   position: absolute;
   left: 50%;
-  bottom: 10px;
+  bottom: 80px;
   transform: translate(-50%, -10%);
   width: 88%;
   background: #faf5f0;
@@ -307,7 +307,7 @@ body {
     opacity 0.8s ease,
     visibility 0s linear 0.8s;
 
-  z-index: 5;   /* en dessous du sceau et de la face avant */
+  z-index: 1;   /* en dessous du sceau et de la face avant */
 }
 
 
