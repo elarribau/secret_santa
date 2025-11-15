@@ -2,16 +2,19 @@
   {
     "prenom": "Marie",
     "password": "etoile2024",
-    "cible": "Paul"
+    "cible": "Paul",
+    "adresse": "12 rue des Bergers <br> 75010 Paris"
   },
   {
     "prenom": "Paul",
     "password": "berger",
-    "cible": "Lucie"
+    "cible": "Lucie",
+    "adresse": "5 avenue de la Crèche <br> 69003 Lyon"
   },
   {
     "prenom": "Lucie",
     "password": "bethleem",
-    "cible": "Marie"
+    "cible": "Marie",
+    "adresse": "8 impasse des Étoiles <br> 31000 Toulouse"
   }
 ]

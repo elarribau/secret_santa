@@ -109,6 +109,10 @@ const loginForm = document.getElementById('loginForm');
 const resultBox = document.getElementById('resultBox');
 const resultText = document.getElementById('resultText');
 
+const letterResult = document.getElementById('letterResult');
+const letterResultText = document.getElementById('letterResultText');
+
+
 // Gestion du formulaire
 if (loginForm) {
   loginForm.addEventListener('submit', (event) => {
@@ -122,7 +126,6 @@ if (loginForm) {
       return;
     }
 
-    // Recherche dans la "base de données"
     const user = participants.find(
       (p) =>
         p.prenom.toLowerCase() === prenom &&
@@ -130,20 +133,45 @@ if (loginForm) {
     );
 
     if (!user) {
-      resultText.textContent =
+      const errorMessage =
         'Impossible de te trouver… Vérifie ton prénom et ton mot de passe, ou contacte l’organisateur.';
-      resultBox.hidden = false;
+
+      // Option : montrer ce message dans la lettre
+      if (letterResult && letterResultText) {
+        // cacher le formulaire
+        loginForm.classList.add('is-hidden');
+        // afficher le bloc résultat
+        letterResult.classList.remove('is-hidden');
+        // mettre le texte (erreur ou succès)
+        letterResultText.textContent = errorMessage;
+        }
+
       return;
     }
 
-    // Affiche le destinataire
-    resultText.innerHTML =
-      'Tu as tiré&nbsp;<strong>' +
-      user.cible +
-      '</strong>&nbsp;! Joyeux Noël 🎄';
+    // Message de succès avec adresse
+    const cible = participants.find(
+    (p) => p.prenom.toLowerCase() === user.cible.toLowerCase()
+    );
 
-    resultBox.hidden = false;
+    // Par sécurité, si on ne trouve pas la cible, on affiche au moins son prénom
+    const cibleNom = cible ? cible.prenom : user.cible;
+    const cibleAdresse = cible && cible.adresse ? cible.adresse : "Adresse non disponible";
+
+    // 1) Lettre : remplacer le formulaire par le message
+    if (letterResult && letterResultText) {
+    loginForm.classList.add('is-hidden');
+    letterResult.classList.remove('is-hidden');
+
+    letterResultText.innerHTML =
+        'Tu as tiré <strong>' + cibleNom +
+        '</strong> ! <br><br>' +
+        '<span><u>Adresse postale :</u> <br> ' + cibleAdresse + '</span>' + 
+        '<br><br> Joyeux Noël !🎄';
+    }
+
   });
 } else {
   console.error('Élément #loginForm introuvable');
 }
+

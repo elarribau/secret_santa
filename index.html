@@ -41,27 +41,27 @@
 
             <div class="letter" id="letter">
                 <form id="loginForm" autocomplete="off">
-                <h2>Ta lettre Secret&nbsp;Santa</h2>
+                    <h2>Ta lettre Secret&nbsp;Santa</h2>
 
-                <label for="prenom">Prénom</label>
-                <input type="text" id="prenom" name="prenom" required>
+                    <label for="prenom">Prénom</label>
+                    <input type="text" id="prenom" name="prenom" required>
 
-                <label for="password">Mot de passe</label>
-                <input type="password" id="password" name="password" required>
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" name="password" required>
 
-                <button type="submit">Découvrir mon tirage</button>
+                    <button type="submit">Découvrir mon tirage</button>
 
-                <p class="hint">
+                    <p class="hint">
                     Le mot de passe est celui que tu as choisi avec l’organisateur.
-                </p>
+                    </p>
                 </form>
-            </div>
-            </div>
-        </div>
 
-        <div class="result" id="resultBox" hidden>
-            <h2>Ton Secret Santa</h2>
-            <p id="resultText"></p>
+                <!-- Bloc pour le message final sur la lettre -->
+                <div class="letter-result is-hidden" id="letterResult">
+                    <h2>Ta lettre Secret&nbsp;Santa</h2>
+                    <p id="letterResultText"></p>
+                </div>
+            </div>
         </div>
     </section>
 

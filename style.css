@@ -7,6 +7,11 @@
   box-sizing: border-box;
 }
 
+/* Utilitaire pour cacher un élément */
+.is-hidden {
+  display: none !important;
+}
+
 body {
   min-height: 100vh;
   font-family: 'Poppins', sans-serif;
@@ -23,30 +28,6 @@ body {
   background-repeat: no-repeat;
 }
 
-/* On réduit un peu le titre sur mobiles */
-@media (max-width: 480px) {
-  .verse h1 {
-    font-size: 2rem;
-  }
-
-  .verse-text {
-    font-size: 0.95rem;
-  }
-
-  .card {
-    width: 90vw;
-    max-width: 340px;
-    height: 240px;
-  }
-
-  .result {
-    width: 90vw;
-    max-width: 420px;
-  }
-}
-
-
-/* Neige qui tombe inspirée de plusieurs exemples CSS de particules */ 
 /* Canvas de neige plein écran */
 #snowCanvas {
   position: fixed;
@@ -57,7 +38,7 @@ body {
   z-index: 1;
 }
 
-/* On remonte le contenu au-dessus de la neige */
+/* Contenu principal au-dessus de la neige */
 .page-wrapper {
   position: relative;
   z-index: 2;
@@ -121,7 +102,7 @@ body {
   transform: translateX(-50%);
 }
 
-/* Guillemets décoratifs avec :before / :after */
+/* Guillemets décoratifs */
 .verse-text {
   font-family: 'Playfair Display', serif;
   font-size: 1.3rem;
@@ -151,41 +132,15 @@ body {
   bottom: -0.6rem;
 }
 
-/* Référence en dessous, plus petite et légère */
+/* Référence en dessous */
 .verse-ref {
   margin-top: 0.9rem;
   font-size: 0.9rem;
   letter-spacing: 0.12em;
   text-transform: uppercase;
   opacity: 0.8;
-}
-
-/* Optionnel : effet small caps sur la référence */
-.verse-ref {
   font-variant: small-caps;
 }
-
-/* Version mobile : tout un peu plus compact */
-@media (max-width: 480px) {
-  .verse-inner {
-    padding: 1.4rem 1.5rem;
-  }
-
-  .verse-text {
-    font-size: 1.05rem;
-  }
-
-  .verse-text::before,
-  .verse-text::after {
-    font-size: 2rem;
-  }
-
-  .verse-inner::before,
-  .verse-inner::after {
-    width: 80%;
-  }
-}
-
 
 /* Conteneur de la lettre */
 .envelope-wrapper {
@@ -204,7 +159,7 @@ body {
   perspective: 1200px;
 }
 
-/* Fond arrière (pour un léger relief) */
+/* Fond arrière (relief) */
 .envelope-back {
   position: absolute;
   inset: 0;
@@ -242,7 +197,7 @@ body {
   transition: transform 0.7s ease;
 }
 
-/* Le triangle du rabat */
+/* Triangle du rabat */
 .envelope-flap::before {
   content: "";
   position: absolute;
@@ -268,9 +223,8 @@ body {
   box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
   border: none;
   cursor: pointer;
-
   animation: seal-pulse 1.5s ease-in-out infinite;
-  z-index: 3;             /* au-dessus de tout dans l'enveloppe-front */
+  z-index: 3;  /* au-dessus de tout dans l'enveloppe */
 }
 
 /* Effet pulse doux */
@@ -301,27 +255,21 @@ body {
   box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
   padding: 1.4rem 1.2rem 1.2rem;
 
+  /* Hauteur minimale commune */
+  min-height: 372px;
+
+  /* Layout interne pour centrer le résultat */
+  display: flex;
+  flex-direction: column;
+
   opacity: 0;
   visibility: hidden;
   transition:
     opacity 0.8s ease,
     visibility 0s linear 0.8s;
-
-  z-index: 1;   /* en dessous du sceau et de la face avant */
+  z-index: 1;
 }
 
-
-/* Rabat fermé par défaut */
-.envelope-flap {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 60%;
-  transform-origin: top center;
-  transform: rotateX(0deg);
-  transition: transform 0.7s ease;
-}
 
 /* Ouverture de l'enveloppe */
 .envelope.open .envelope-flap {
@@ -339,6 +287,7 @@ body {
 .envelope.open .letter {
   opacity: 1;
   visibility: visible;
+  transform: translate(-50%, -10%);
   transition:
     opacity 0.8s ease,
     visibility 0s linear 0s;
@@ -395,56 +344,7 @@ body {
   text-align: center;
 }
 
-/* Bouton ouvrir la lettre */
-.open-letter-btn {
-  margin-top: 0.4rem;
-  padding: 0.6rem 1.5rem;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  background: rgba(0, 0, 0, 0.3);
-  color: #ffffff;
-  cursor: pointer;
-  font-weight: 500;
-  backdrop-filter: blur(4px);
-  transition: background 0.3s, transform 0.2s;
-}
-
-.open-letter-btn:hover {
-  background: rgba(0, 0, 0, 0.5);
-  transform: translateY(-1px);
-}
-
-/* État "ouverte" : rabat qui se lève + lettre qui sort */
-.envelope.open .envelope-flap {
-  transform: rotateX(-180deg);
-}
-
-.envelope.open .envelope-seal {
-  transform: translate(-50%, -10%) scale(0.4);
-  opacity: 0;
-}
-
-.envelope.open .letter {
-  transform: translate(-50%, -10%);
-}
-
-/* Mobile : on réduit un peu */
-@media (max-width: 480px) {
-  .envelope {
-    width: 280px;
-    height: 190px;
-  }
-
-  .letter {
-    padding: 1.2rem 1rem 1rem;
-  }
-
-  .letter h2 {
-    font-size: 1.15rem;
-  }
-}
-
-
+/* Formulaire (layout interne) */
 #loginForm {
   width: 100%;
   display: flex;
@@ -493,7 +393,7 @@ input[type="password"] {
   text-align: center;
 }
 
-/* Résultat */
+/* Résultat sous la carte (optionnel) */
 .result {
   max-width: 400px;
   padding: 1.5rem 2rem;
@@ -513,14 +413,69 @@ input[type="password"] {
   line-height: 1.5;
 }
 
+/* Bloc résultat dans la lettre */
+.letter-result {
+  width: 100%;
+  text-align: center;
+
+  /* Layout interne : h2 en haut, paragraphe centré */
+  display: flex;
+  flex-direction: column;
+  height: 100%;          /* occupe toute la hauteur de .letter */
+}
+
+.letter-result h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+  color: #4e342e;
+}
+
+/* On centre verticalement le paragraphe dans l'espace restant */
+.letter-result p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #4e342e;
+
+  margin-top: 3rem;
+  margin-bottom: auto;
+}
+
+
 /* Responsif */
 @media (max-width: 480px) {
   .verse h1 {
-    font-size: 2.3rem;
+    font-size: 2rem;
   }
 
-  .card {
-    width: 300px;
-    height: 240px;
+  .verse-text {
+    font-size: 0.95rem;
+  }
+
+  .verse-inner {
+    padding: 1.4rem 1.5rem;
+  }
+
+  .verse-text::before,
+  .verse-text::after {
+    font-size: 2rem;
+  }
+
+  .verse-inner::before,
+  .verse-inner::after {
+    width: 80%;
+  }
+
+  .envelope {
+    width: 280px;
+    height: 190px;
+  }
+
+  .letter {
+    padding: 1.2rem 1rem 1rem;
+  }
+
+  .letter h2 {
+    font-size: 1.15rem;
   }
 }
