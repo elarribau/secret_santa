@@ -14,53 +14,58 @@
   <div class="page-wrapper">
     <!-- Verset biblique -->
     <section class="verse">
-      <h1>Secret Santa</h1>
-      <p class="verse-text">
-        « Car Dieu a tant aimé le monde qu’il a donné son Fils unique,
-        afin que quiconque croit en lui ne périsse point, mais qu’il ait la vie éternelle. » – Jean 3:16
-      </p>
+        <div class="verse-inner">
+            <p class="verse-text">
+            Car Dieu a tant aimé le monde qu’il a donné son Fils unique,
+            afin que quiconque croit en lui ne périsse point, mais qu’il ait la vie éternelle.
+            </p>
+            <p class="verse-ref">
+            Jean 3:16
+            </p>
+        </div>
     </section>
+
 
     <!-- Carte qui s'ouvre -->
     <section class="card-container">
-      <div class="card" id="loginCard">
-        <div class="card-inner">
-          <!-- Devant de la carte -->
-          <div class="card-front">
-            <div class="card-front-content">
-              <h2>Cliquer pour ouvrir</h2>
-              <p>Découvre qui tu as tiré&nbsp;!</p>
-              <button id="openCardBtn">Ouvrir la carte</button>
+        <div class="envelope-wrapper">
+            <div class="envelope" id="envelope">
+            <div class="envelope-back"></div>
+            <div class="envelope-front">
+                <button class="envelope-seal" id="envelopeSeal" type="button">
+                ✉️
+                </button>
+                <div class="envelope-flap"></div>
+                <div class="envelope-body"></div>
             </div>
-          </div>
 
-          <!-- Intérieur de la carte -->
-          <div class="card-back">
-            <form id="loginForm" autocomplete="off">
-              <h2>Connexion Secret Santa</h2>
+            <div class="letter" id="letter">
+                <form id="loginForm" autocomplete="off">
+                <h2>Ta lettre Secret&nbsp;Santa</h2>
 
-              <label for="prenom">Prénom</label>
-              <input type="text" id="prenom" name="prenom" required>
+                <label for="prenom">Prénom</label>
+                <input type="text" id="prenom" name="prenom" required>
 
-              <label for="password">Mot de passe</label>
-              <input type="password" id="password" name="password" required>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" required>
 
-              <button type="submit">Voir mon tirage</button>
+                <button type="submit">Découvrir mon tirage</button>
 
-              <p class="hint">
-                Le mot de passe est celui que tu as choisi avec l’organisateur.
-              </p>
-            </form>
-          </div>
+                <p class="hint">
+                    Le mot de passe est celui que tu as choisi avec l’organisateur.
+                </p>
+                </form>
+            </div>
+            </div>
         </div>
-      </div>
 
-      <!-- Résultat du tirage -->
-      <div class="result" id="resultBox" hidden>
-        <h2>Ton Secret Santa</h2>
-        <p id="resultText"></p>
-      </div>
+        <div class="result" id="resultBox" hidden>
+            <h2>Ton Secret Santa</h2>
+            <p id="resultText"></p>
+        </div>
     </section>
+
+
   </div>
 
   <script src="script.js"></script>

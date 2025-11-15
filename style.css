@@ -71,109 +71,379 @@ body {
 
 /* Verset biblique */
 .verse {
-  text-align: center;
+  display: flex;
+  justify-content: center;
   margin-bottom: 3rem;
-  max-width: 700px;
+  padding: 0 1.5rem;
 }
 
-.verse h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  letter-spacing: 2px;
+.verse-inner {
+  max-width: 1020px;
+  text-align: center;
+  padding: 1.8rem 2.4rem;
+  border-radius: 18px;
+  background: linear-gradient(
+      135deg,
+      rgba(0, 0, 0, 0.55),
+      rgba(0, 0, 0, 0.75)
+    );
+  box-shadow:
+    0 18px 40px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.12);
+  position: relative;
+  overflow: hidden;
 }
 
+/* Petite ligne décorative au-dessus et en dessous */
+.verse-inner::before,
+.verse-inner::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  width: 70%;
+  max-width: 420px;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.7),
+    transparent
+  );
+}
+
+.verse-inner::before {
+  top: 0.8rem;
+  transform: translateX(-50%);
+}
+
+.verse-inner::after {
+  bottom: 0.8rem;
+  transform: translateX(-50%);
+}
+
+/* Guillemets décoratifs avec :before / :after */
 .verse-text {
-  font-size: 1.1rem;
-  line-height: 1.6;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  line-height: 1.7;
   font-style: italic;
+  padding: 0.6rem 0.5rem 0.2rem;
+  position: relative;
 }
 
-/* Carte de connexion */
-.card-container {
+.verse-text::before,
+.verse-text::after {
+  position: absolute;
+  font-size: 2.4rem;
+  color: rgba(255, 255, 255, 0.18);
+  font-family: 'Playfair Display', serif;
+}
+
+.verse-text::before {
+  content: "❝";
+  left: -0.4rem;
+  top: -0.4rem;
+}
+
+.verse-text::after {
+  content: "❞";
+  right: -0.4rem;
+  bottom: -0.6rem;
+}
+
+/* Référence en dessous, plus petite et légère */
+.verse-ref {
+  margin-top: 0.9rem;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+
+/* Optionnel : effet small caps sur la référence */
+.verse-ref {
+  font-variant: small-caps;
+}
+
+/* Version mobile : tout un peu plus compact */
+@media (max-width: 480px) {
+  .verse-inner {
+    padding: 1.4rem 1.5rem;
+  }
+
+  .verse-text {
+    font-size: 1.05rem;
+  }
+
+  .verse-text::before,
+  .verse-text::after {
+    font-size: 2rem;
+  }
+
+  .verse-inner::before,
+  .verse-inner::after {
+    width: 80%;
+  }
+}
+
+
+/* Conteneur de la lettre */
+.envelope-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 1.5rem;
 }
 
-.card {
-  width: 340px;
-  height: 260px;
+/* Enveloppe générale */
+.envelope {
+  position: relative;
+  width: 320px;
+  max-width: 90vw;
+  height: 210px;
   perspective: 1200px;
 }
 
-.card-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  transition: transform 0.9s;
-  transform-style: preserve-3d;
-}
-
-/* Etat ouvert (rotation) */
-.card.open .card-inner {
-  transform: rotateY(180deg);
-}
-
-/* Faces de la carte */
-.card-front,
-.card-back {
+/* Fond arrière (pour un léger relief) */
+.envelope-back {
   position: absolute;
-  width: 100%;
-  height: 100%;
-  border-radius: 14px;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  box-shadow:
-    0 20px 40px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.2);
-  overflow: hidden;
+  inset: 0;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #8e2a2a, #4a0b0b);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  z-index: 1;
 }
 
-/* Aspect papier de Noël */
-.card-front {
-  background: linear-gradient(135deg, #b71c1c, #880e4f);
+/* Partie "papier" de l'enveloppe */
+.envelope-front {
+  position: absolute;
+  inset: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  z-index: 2;
+}
+
+/* Corps inférieur de l'enveloppe */
+.envelope-body {
+  position: absolute;
+  inset: 40% 0 0 0;
+  background: linear-gradient(135deg, #c62828, #ad1457);
+}
+
+/* Rabat (triangle) */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.7s ease;
+}
+
+/* Le triangle du rabat */
+.envelope-flap::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, #e53935, #d81b60);
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+}
+
+/* Sceau cliquable */
+.envelope-seal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -10%);
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffe082, #ffb300);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 1.4rem;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.3);
+  border: none;
+  cursor: pointer;
+
+  animation: seal-pulse 1.5s ease-in-out infinite;
+  z-index: 3;             /* au-dessus de tout dans l'enveloppe-front */
+}
+
+/* Effet pulse doux */
+@keyframes seal-pulse {
+  0% {
+    transform: translate(-50%, -10%) scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0.55);
+  }
+  50% {
+    transform: translate(-50%, -10%) scale(1.08);
+    box-shadow: 0 0 0 12px rgba(255, 193, 7, 0);
+  }
+  100% {
+    transform: translate(-50%, -10%) scale(1);
+    box-shadow: 0 0 0 0 rgba(255, 193, 7, 0);
+  }
+}
+
+/* Lettre à l'intérieur : position finale, mais invisible au départ */
+.letter {
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translate(-50%, -10%);
+  width: 88%;
+  background: #faf5f0;
+  border-radius: 12px;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.45);
+  padding: 1.4rem 1.2rem 1.2rem;
+
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity 0.8s ease,
+    visibility 0s linear 0.8s;
+
+  z-index: 5;   /* en dessous du sceau et de la face avant */
+}
+
+
+/* Rabat fermé par défaut */
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60%;
+  transform-origin: top center;
+  transform: rotateX(0deg);
+  transition: transform 0.7s ease;
+}
+
+/* Ouverture de l'enveloppe */
+.envelope.open .envelope-flap {
+  transform: rotateX(-180deg);
+}
+
+/* Quand l'enveloppe est ouverte, on stoppe et on masque le sceau */
+.envelope.open .envelope-seal {
+  animation: none;
+  transform: translate(-50%, -10%) scale(0.4);
+  opacity: 0;
+}
+
+/* Lettre visible en fondu quand l'enveloppe est ouverte */
+.envelope.open .letter {
+  opacity: 1;
+  visibility: visible;
+  transition:
+    opacity 0.8s ease,
+    visibility 0s linear 0s;
+}
+
+/* Formulaire dans la lettre */
+.letter h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.3rem;
+  margin-bottom: 0.6rem;
+  color: #4e342e;
   text-align: center;
 }
 
-.card-front-content h2 {
-  font-family: 'Playfair Display', serif;
+.letter label {
+  font-size: 0.85rem;
+  color: #4e342e;
+}
+
+.letter input[type="text"],
+.letter input[type="password"] {
+  width: 100%;
+  margin-top: 0.2rem;
   margin-bottom: 0.5rem;
+  padding: 0.55rem 0.7rem;
+  border-radius: 8px;
+  border: 1px solid rgba(121, 85, 72, 0.4);
+  outline: none;
+  font-size: 0.95rem;
 }
 
-.card-front-content p {
-  margin-bottom: 1rem;
-}
-
-.card-front-content button {
-  padding: 0.6rem 1.4rem;
-  border-radius: 999px;
+.letter button[type="submit"] {
+  width: 100%;
+  margin-top: 0.4rem;
+  padding: 0.7rem;
+  border-radius: 10px;
   border: none;
   cursor: pointer;
+  font-weight: 600;
+  background: #ffb74d;
+  color: #4e342e;
+  transition: background 0.25s ease, transform 0.2s ease;
+}
+
+.letter button[type="submit"]:hover {
+  background: #ffe0b2;
+  transform: translateY(-1px);
+}
+
+.letter .hint {
+  font-size: 0.8rem;
+  margin-top: 0.4rem;
+  color: #6d4c41;
+  text-align: center;
+}
+
+/* Bouton ouvrir la lettre */
+.open-letter-btn {
+  margin-top: 0.4rem;
+  padding: 0.6rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.3);
+  color: #ffffff;
+  cursor: pointer;
   font-weight: 500;
-  background: #ffffff;
-  color: #b71c1c;
-  transition: background 0.3s, color 0.3s, transform 0.2s;
+  backdrop-filter: blur(4px);
+  transition: background 0.3s, transform 0.2s;
 }
 
-.card-front-content button:hover {
-  background: #fce4ec;
-  transform: translateY(-2px);
+.open-letter-btn:hover {
+  background: rgba(0, 0, 0, 0.5);
+  transform: translateY(-1px);
 }
 
-/* Intérieur de la carte */
-.card-back {
-  background: linear-gradient(135deg, #1e88e5, #0d47a1);
-  transform: rotateY(180deg);
-  padding: 1.8rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* État "ouverte" : rabat qui se lève + lettre qui sort */
+.envelope.open .envelope-flap {
+  transform: rotateX(-180deg);
 }
+
+.envelope.open .envelope-seal {
+  transform: translate(-50%, -10%) scale(0.4);
+  opacity: 0;
+}
+
+.envelope.open .letter {
+  transform: translate(-50%, -10%);
+}
+
+/* Mobile : on réduit un peu */
+@media (max-width: 480px) {
+  .envelope {
+    width: 280px;
+    height: 190px;
+  }
+
+  .letter {
+    padding: 1.2rem 1rem 1rem;
+  }
+
+  .letter h2 {
+    font-size: 1.15rem;
+  }
+}
+
 
 #loginForm {
   width: 100%;

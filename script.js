@@ -81,17 +81,20 @@ window.addEventListener('resize', () => {
   canvas.height = H;
 });
 
+// --- Ouverture de l'enveloppe ---
+const envelope = document.getElementById('envelope');
+const envelopeSeal = document.getElementById('envelopeSeal');
 
-
-// Ouvrir la carte au clic
-const card = document.getElementById('loginCard');
-const openCardBtn = document.getElementById('openCardBtn');
+// --- Formulaire et résultat ---
 const loginForm = document.getElementById('loginForm');
 const resultBox = document.getElementById('resultBox');
 const resultText = document.getElementById('resultText');
 
-openCardBtn.addEventListener('click', () => {
-  card.classList.add('open');
+envelopeSeal.addEventListener('click', () => {
+  envelope.classList.add('open');
+
+  // On peut aussi désactiver le sceau pour éviter plusieurs clics
+  envelopeSeal.disabled = true;
 });
 
 // Simule la base de données en chargeant participants.json
